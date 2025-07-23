@@ -526,17 +526,30 @@ for(let i=0; i<=countries.length; i++){
 
             cell.setAttribute("id",countryName);
     
-    cell.addEventListener("click", function() {
+    // Add style for selected country
+cell.style.transition = 'box-shadow 0.3s ease';
 
-        let info = countryInfo[countryName];
-        let result = document.getElementById("result");
-        result.innerHTML = `
-            <h2>This country is ${info.name}</h2>
-            <p>Its capital is ${info.capital}.</p>
-            <p>${info.name}'s population is ${info.population}, and it is located in ${info.region}.</p>
-            <p>The country's area is ${info.area}, and its official languages include ${info.languages.join(', ')}.</p>
-        `;
-        });
+cell.addEventListener("click", function() {
+    // Remove border from previously selected country
+    const previouslySelected = document.querySelector('.selected-country');
+    if (previouslySelected) {
+        previouslySelected.classList.remove('selected-country');
+        previouslySelected.style.boxShadow = '0px 0px 1px 0px grey';
+    }
+    
+    // Add border to newly selected country
+    this.classList.add('selected-country');
+    this.style.boxShadow = '0 0 0 3px #3498db';
+    
+    let info = countryInfo[countryName];
+    let result = document.getElementById("result");
+    result.innerHTML = `
+        <h2>This country is ${info.name}</h2>
+        <p>Its capital is ${info.capital}.</p>
+        <p>${info.name}'s population is ${info.population}, and it is located in ${info.region}.</p>
+        <p>The country's area is ${info.area}, and its official languages include ${info.languages.join(', ')}.</p>
+    `;
+});
 
         }        
 }   
